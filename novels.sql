@@ -11,7 +11,7 @@ id INT auto_increment,
 nameFirst VARCHAR(255),
 nameLast VARCHAR(255),
 createdAt DATETIME DEFAULT NOW(),
-updatedAt DATETIME DEFAULT NOW(),
+updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
 deletedAt DATETIME,
 PRIMARY KEY(id)
 );
@@ -20,7 +20,7 @@ CREATE TABLE genres (
 id INT auto_increment,
 name VARCHAR(255),
 createdAt DATETIME DEFAULT NOW(),
-updatedAt DATETIME DEFAULT NOW(),
+updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
 deletedAt DATETIME,
 PRIMARY KEY(id)
 );
@@ -30,7 +30,7 @@ id INT auto_increment,
 title VARCHAR(255),
 authorId INT,
 createdAt DATETIME DEFAULT NOW(),
-updatedAt DATETIME DEFAULT NOW(),
+updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
 deletedAt DATETIME,
 PRIMARY KEY(id),
 FOREIGN KEY(authorId) REFERENCES authors(id)
@@ -40,7 +40,7 @@ CREATE TABLE novelsGenres (
 novelId INT,
 genreId INT,
 createdAt DATETIME DEFAULT NOW(),
-updatedAt DATETIME DEFAULT NOW(),
+updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
 deletedAt DATETIME,
 PRIMARY KEY(novelId, genreId),
 FOREIGN KEY(novelId) REFERENCES novels(id),
