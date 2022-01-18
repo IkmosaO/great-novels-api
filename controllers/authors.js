@@ -9,7 +9,7 @@ const getAllAuthors = async (request, response) => {
   } catch (error) {
     console.log(error)
 
-    return response.status(500).send('Unable to retrieve Authors, try again')
+    return response.status(500).send('Unable to retrieve authors, try again')
   }
 }
 
@@ -31,11 +31,30 @@ const getAuthor = async (request, response) => {
   } catch (error) {
     console.log(error)
 
-    return response.status(500).send('Unable to get employer,please try again later')
+    return response.status(500).send('Unable to get author,please try again later')
+  }
+}
+
+const getAuthorByLastName = async (request, response) => {
+  try {
+    const { lastName } = request.params
+
+    const foundAuthor = await models.Authors.findOne({
+      where: {
+        nameLast: { [models.Op.like]: `%${lastName.toLowerCase()}%` },
+      }
+    })
+
+    return foundAuthor ? response.send(foundAuthor) : response.sendStatus(404)
+  } catch (error) {
+    console.log(error)
+
+    return response.status(500).send('Unable to get author, try again')
   }
 }
 
 module.exports = {
   getAllAuthors,
-  getAuthor
+  getAuthor,
+  getAuthorByLastName
 }
